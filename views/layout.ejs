@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Auth Boilerplate</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     </head>
     <body>
         <header>
@@ -10,8 +11,8 @@
                     <a href="/auth/logout">Logout</a>
                     <a href="/profile">Profile</a>
                 <% } else { %> 
-                    <a href="/auth/register">Register</a>
-                    <a href="/auth/login">Login</a>
+                    <a href="/auth/register"><button type="button" class="btn btn-default navbar-btn">Register</button></a>
+                    <a href="/auth/login"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
                 <% } %>
             </nav>
         </header>
