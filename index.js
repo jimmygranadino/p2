@@ -11,7 +11,7 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 let fs = require ('fs')
 const bodyParser = require('body-parser')
-const axios = require('axios')
+
 
 // app setup
 const app = Express();
