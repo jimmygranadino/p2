@@ -4,6 +4,7 @@ const db = require('../models');
 // import middleware
 const flash = require('connect-flash');
 const passport = require("../config/ppConfig");
+const { Op } = require("sequelize")
 
 // register get route
 router.get('/register', function(req, res) {
@@ -74,6 +75,46 @@ router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
+
+// GET route for watchlist
+router.get('/watchlist', function(req, res) {
+    db.city.findAll({
+        include: [db.user, db.currency],
+        where: { userId: {[Op.not]: null} },
+    })
+    .then(function(cities) {
+      res.render('auth/watchlist', { cities: cities })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+});
+
+// POST route for watchlist to remove ticker
+router.post('/watchlist/:id/remove', function(req,res) {
+    db.city.update({
+        userId: null
+      }, { where: {
+          id: req.params.id }
+      })
+      .then(function(post) {
+        res.redirect('/auth/watchlist')
+      })
+      .catch(err => {
+          console.log(err)
+      })
+})
+
+router.get('/:id', function(req, res) {
+    let fixerUrl = `http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API}&symbols=${city.currencyName}`
+    axios.get(fixerUrl)
+        .then(function(fixerResponse) {
+            let currencyResult = fixerResponse.data.rates
+            res.render('city/show', {currencyResult: currencyResult})
+        }).catch(err => {
+            console.log(err)
+        })
+})
 
 // export router
 module.exports = router;

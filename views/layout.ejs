@@ -1,25 +1,57 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Auth Boilerplate</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <title>COL Cities</title>
+        <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css" media="screen">
+        <link rel="stylesheet" href="../_assets/css/custom.min.css">
     </head>
     <body>
         <header>
             <nav>
-                <% if (currentUser) { %>
-                    <a href="/auth/logout">Logout</a>
-                    <a href="/profile">Profile</a>
-                <% } else { %> 
-                    <a href="/auth/register"><button type="button" class="btn btn-default navbar-btn">Register</button></a>
-                    <a href="/auth/login"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
-                <% } %>
+                <div class="bs-component">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+      
+                      <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav mr-auto">
+                            <% if (currentUser) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/logout">Logout</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/profile">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/watchlist">Watchlist</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/city">List of Cities</a>
+                                </li>
+                            <% } else { %> 
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/register">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/login">Sign in</a>
+                                </li>
+                            <% } %>
+                        </ul>
+                      </div>
+                    </nav>
+                  </div>
             </nav>
         </header>
+        <br />
         <div class="container">
-            <h1>🦦 Authenticating Users 🦦</h1>
             <%- include('./partials/alerts') %>
             <%- body %>
         </div>
     </body>
+    <footer>
+        <div class="jumbotron">
+            <p>All images sourced from Unsplash in compliance with <a href="https://unsplash.com/license">Unsplash License</a></p>
+        </div>
+    </footer>
 </html>

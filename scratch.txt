@@ -6,4 +6,21 @@ name: string
 password: 
 
 
-sequelize create:model --name user --attributes id:integer,email:string,name:string,password:
+sequelize model:create --name user --attributes id:integer,cityId:integer, email:string,name:string,password:
+
+City
+---
+name: string
+userId: integer
+currencyId: integer
+
+
+sequelize model:create --name city --attributes id:integer,name:string,userId:integer,currencyId:integer
+
+
+Currency
+---
+name: string
+cityId: integer
+
+sequelize model:create --name currency --attributes id:integer,name:string,cityId:integer

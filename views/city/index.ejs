@@ -1,0 +1,17 @@
+<h1>Cities:</h1>
+<br />
+<div class="container">
+    <div class="row">
+        <% cities.forEach(function(city) { %>
+        <div class="col-4">
+            <div class="card mb-3">
+                <h3 class="card-header text-center"><%= city.name %></h3>
+                <img style="height: 100%; width: 100%; display: block;" src="<%= city.url %>">
+                <div class="card-body">
+                    <h5 class="text-center"><a href="/city/<%= city.id %>" class="card-link">View Detail</a></h5>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>

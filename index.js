@@ -9,16 +9,19 @@ const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
+let fs = require ('fs')
+const bodyParser = require('body-parser')
+const axios = require('axios')
 
 // app setup
 const app = Express();
 app.use(Express.urlencoded({ extended: false }));
-app.use(Express.static(__dirname + "/public"));
+app.use(Express.static(__dirname + '/public'));
 app.set('view engine','ejs');
 app.use(ejsLayouts);
 app.use(require('morgan')('dev'));
 app.use(helmet());
+app.use(bodyParser.json())
 
 // create new instance of class Sequelize Store
 const sessionStore = new SequelizeStore({
@@ -46,6 +49,8 @@ app.use(function(req, res, next) {
 
     next();
 });
+
+app.use('/city', require('./controllers/city'))
 
 // ROUTES
 app.get('/', function(req, res) {
