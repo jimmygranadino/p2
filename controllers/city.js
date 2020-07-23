@@ -21,8 +21,9 @@ router.get('/:id', function(req, res) {
     include: [{model: db.currency, attributes:['name']}], 
   })
   .then(function(city) {
-    if (!city) throw Error()
-    res.render('city/show', { city: city })
+    axios.get(`http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API}&symbols=${city.currencyName}`)
+      .then(function (response) 
+      { res.render('city/show', { city: city, response: response}) })
   })
   .catch(err => {
     console.log(err)
@@ -43,22 +44,5 @@ router.post('/:id/add', function(req, res) {
         console.log(err)
     })
 })
-
-
-// GET - get to rate
-router.get('/:id/rate', function(req, res) {
-  let fixerUrl = `http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API}&symbols=${db.city.currencyName}`
-  axios.get(fixerUrl)
-  .then(fixerResponse => {
-    let currencyResult = fixerResponse.data.rates
-    console.log(currencyResult + '🌊')
-    res.render('city/show', {currencyResult: currencyResult})
-})
-  .catch(err => {
-      console.log(err)
-  })
-})
-
-
 
 module.exports = router

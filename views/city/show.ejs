@@ -4,7 +4,7 @@
             <h1 class="card-header text-center"><%= city.name %></h1>
             <img style="height: 100%; width: 100%; display: block;" src="<%= city.url %>">
             <div class="card-body">
-              <h4 class="card-text text-center">1 Euro = <strong><%= city.currencyName %> <%= %> </strong></h4>
+              <h4 class="card-text text-center">1 Euro = <strong><%= JSON.stringify(response.data.rates) %></strong></h4>
             </div>
             <div class="card-body">
                 <h5 class="text-center"><form method="post" action="/city/<%= city.id %>/add" class="inline">
@@ -13,8 +13,8 @@
                       Add to Watchlist
                     </button>
                 </form>
-            </h5>
-            </div>
+          </div>
           </div>
     </div>
 </div>
+

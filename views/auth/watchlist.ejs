@@ -6,7 +6,7 @@
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
                 <div class="card-header"><h3><%= city.name %></h3></div>
                 <div class="card-body">
-                <h5 class="card-title">1 Euro = </h5>
+                <h5 class="card-title">1 Euro = <%= city.currencyName %><% console.log(response.data.rates) %></h5>
                 <form method="post" action="/auth/watchlist/<%= city.id %>/remove" class="inline">
                     <input type="hidden">
                     <button type="submit" class="btn btn-secondary">
@@ -19,4 +19,3 @@
         <% }) %>
     </div>
 <br />
-

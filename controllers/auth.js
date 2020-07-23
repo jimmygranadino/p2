@@ -5,6 +5,7 @@ const db = require('../models');
 const flash = require('connect-flash');
 const passport = require("../config/ppConfig");
 const { Op } = require("sequelize")
+const axios = require('axios')
 
 // register get route
 router.get('/register', function(req, res) {
@@ -82,8 +83,15 @@ router.get('/watchlist', function(req, res) {
         include: [db.user, db.currency],
         where: { userId: {[Op.not]: null} },
     })
-    .then(function(cities) {
-      res.render('auth/watchlist', { cities: cities })
+    .then(function(cities, city) {
+//      cities.forEach(function(city) {
+            axios.get(`http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API}&symbols=${cities.currencyName}`)
+            .then(function (response) {
+            res.render('auth/watchlist', { cities: cities, response: response, city: city}) 
+            })
+//      })
+    // .then(function(cities) {
+    //   res.render('auth/watchlist', { cities: cities, response: response })
     })
     .catch(err => {
       console.log(err)
@@ -103,17 +111,6 @@ router.post('/watchlist/:id/remove', function(req,res) {
       .catch(err => {
           console.log(err)
       })
-})
-
-router.get('/:id', function(req, res) {
-    let fixerUrl = `http://data.fixer.io/api/latest?access_key=${process.env.FIXER_API}&symbols=${city.currencyName}`
-    axios.get(fixerUrl)
-        .then(function(fixerResponse) {
-            let currencyResult = fixerResponse.data.rates
-            res.render('city/show', {currencyResult: currencyResult})
-        }).catch(err => {
-            console.log(err)
-        })
 })
 
 // export router
